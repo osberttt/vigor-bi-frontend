@@ -1,25 +1,48 @@
 import logo from './logo.svg';
 import './App.css';
+import Dashboard from './dashboard/Dashboard';
+import * as React from 'react';
 
-function App() {
+import { alpha } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import AppNavbar from './dashboard/components/AppNavbar';
+import Header from './dashboard/components/Header';
+import MainGrid from './dashboard/components/MainGrid';
+import SideMenu from './dashboard/components/SideMenu';
+import AppTheme from './shared-theme/AppTheme';
+import {
+  chartsCustomizations,
+  dataGridCustomizations,
+  datePickersCustomizations,
+  treeViewCustomizations,
+} from './dashboard/theme/customizations';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import AnalyticsBoard from './dashboard/AnalyticsBoard';
+
+const xThemeComponents = {
+  ...chartsCustomizations,
+  ...dataGridCustomizations,
+  ...datePickersCustomizations,
+  ...treeViewCustomizations,
+};
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  <AppTheme {...props} themeComponents={xThemeComponents}>
+  <CssBaseline enableColorScheme />
+  <Box sx={{ display: 'flex' }}>
+    <SideMenu />
+    <AppNavbar />
+    {/* Main content */}
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/overview" element={<Dashboard />} />
+        <Route path="/sales-analysis" element={<AnalyticsBoard />} />
+      </Routes>
+  </Box>
+</AppTheme>
+  )
 }
 
 export default App;
