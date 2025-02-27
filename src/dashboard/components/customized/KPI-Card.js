@@ -41,7 +41,7 @@ AreaGradient.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-function StatCard({ title, value, interval, trend, changeAmount, data }) {
+function KPICard({ title, value, trend, changeAmount, data }) {
   const theme = useTheme();
   const daysInWeek = getDaysInMonth(4, 2024);
 
@@ -91,7 +91,7 @@ function StatCard({ title, value, interval, trend, changeAmount, data }) {
               <Chip size="small" color={color} label={changeAmountSign[trend] + ' ' + changeAmount + '%'} />
             </Stack>
             <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-              {interval}
+              Last 30 days
             </Typography>
           </Stack>
           <Box sx={{ width: '100%', height: 50 }}>
@@ -120,7 +120,7 @@ function StatCard({ title, value, interval, trend, changeAmount, data }) {
   );
 }
 
-StatCard.propTypes = {
+KPICard.propTypes = {
   data: PropTypes.arrayOf(PropTypes.number).isRequired,
   interval: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -128,4 +128,4 @@ StatCard.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default StatCard;
+export default KPICard;

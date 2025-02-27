@@ -10,10 +10,10 @@ import Icons from "./Icons"; // Import the icons file
 
 const mainListItems = [
   { text: "Overview", icon: <Icons.Overview />, path: "/overview" },
-  { text: "Sales Analysis", icon: <Icons.SalesAnalysis />, path: "/sales-analysis" },
   { text: "Cost & Profit", icon: <Icons.CostAndProfit />, path: "/cost-profit" },
   { text: "Stock Management", icon: <Icons.StockManagement />, path: "/stock-management" },
   { text: "Performance", icon: <Icons.Performance />, path: "/performance" },
+  { text: "Orders", icon: <Icons.Orders />, path: "/orders" },
   { text: "AI Insights", icon: <Icons.AIInsights />, path: "/ai-insights" },
 ];
 

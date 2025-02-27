@@ -1,28 +1,12 @@
 import * as React from 'react';
 
 import { alpha } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import AppNavbar from './components/AppNavbar';
-import Header from './components/Header';
-import MainGrid from './components/MainGrid';
-import SideMenu from './components/SideMenu';
-import {
-  chartsCustomizations,
-  dataGridCustomizations,
-  datePickersCustomizations,
-  treeViewCustomizations,
-} from './theme/customizations';
+import Header from '../../components/Header';
+import OverviewGrid from './Overview-Grid';
 
-const xThemeComponents = {
-  ...chartsCustomizations,
-  ...dataGridCustomizations,
-  ...datePickersCustomizations,
-  ...treeViewCustomizations,
-};
-
-export default function Dashboard(props) {
+export default function OverviewBoard(props) {
   return (
     <Box
           component="main"
@@ -43,8 +27,8 @@ export default function Dashboard(props) {
               mt: { xs: 8, md: 0 },
             }}
           >
-            <Header pageName="Dashboard"/>
-            <MainGrid />
+            <Header pageName="Overview"/>
+            <OverviewGrid />
           </Stack>
     </Box>
   );

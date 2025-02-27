@@ -47,7 +47,7 @@ export default function AnalyticsBoard(props) {
               mt: { xs: 8, md: 0 },
             }}
           >
-            <Header />
+            <Header pageName="Analytics"/>
             <AnalyticsGrid />
           </Stack>
     </Box>

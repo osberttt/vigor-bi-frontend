@@ -20,6 +20,7 @@ import {
 } from './dashboard/theme/customizations';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import AnalyticsBoard from './dashboard/AnalyticsBoard';
+import OverviewBoard from './dashboard/pages/Overview/Overview-Board';
 
 const xThemeComponents = {
   ...chartsCustomizations,
@@ -36,8 +37,8 @@ function App(props) {
     <AppNavbar />
     {/* Main content */}
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/overview" element={<Dashboard />} />
+        <Route path="/" element={<OverviewBoard />} />
+        <Route path="/overview" element={<OverviewBoard />} />
         <Route path="/sales-analysis" element={<AnalyticsBoard />} />
       </Routes>
   </Box>
