@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useTheme } from '@mui/material/styles';
 
-export default function BarGraph({title, value, description, series}) {
+export default function BarGraph({title, value, description, interval, series}) {
   const theme = useTheme();
   const colorPalette = [
     (theme.vars || theme).palette.primary.dark,
@@ -46,12 +46,12 @@ export default function BarGraph({title, value, description, series}) {
             {
               scaleType: 'band',
               categoryGapRatio: 0.5,
-              data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+              data: interval,
             },
           ]}
           series={series}
           height={250}
-          margin={{ left: 50, right: 0, top: 20, bottom: 20 }}
+          margin={{ left: 70, right: 0, top: 20, bottom: 20 }}
           grid={{ horizontal: true }}
           slotProps={{
             legend: {

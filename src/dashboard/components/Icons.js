@@ -1,18 +1,13 @@
-import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
-import BarChartRoundedIcon from "@mui/icons-material/BarChartRounded";
-import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded";
-import InventoryRoundedIcon from "@mui/icons-material/InventoryRounded";
-import LeaderboardRoundedIcon from "@mui/icons-material/LeaderboardRounded";
-import InsightsRoundedIcon from "@mui/icons-material/InsightsRounded";
-import ReorderRoundedIcon from '@mui/icons-material/ReorderRounded';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import PsychologyIcon from '@mui/icons-material/Psychology';
 
-const Icons = {
-  Overview: DashboardRoundedIcon,
-  CostAndProfit: MonetizationOnRoundedIcon,
-  StockManagement: InventoryRoundedIcon,
-  Performance: LeaderboardRoundedIcon,
-  Orders: ReorderRoundedIcon,
-  AIInsights: InsightsRoundedIcon,
-};
-
-export default Icons;
+export const Icons = {
+  Overview: DashboardIcon,
+  Reports: BarChartIcon,
+  CostAndProfit: MonetizationOnIcon,
+  StockManagement: InventoryIcon,
+  AIInsights: PsychologyIcon,
+}

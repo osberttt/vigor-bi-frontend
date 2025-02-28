@@ -10,21 +10,6 @@ import Typography from '@mui/material/Typography';
 import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
 import { areaElementClasses } from '@mui/x-charts/LineChart';
 
-function getDaysInMonth(month, year) {
-  const date = new Date(year, month, 0);
-  const monthName = date.toLocaleDateString('en-US', {
-    month: 'short',
-  });
-  const daysInMonth = date.getDate();
-  const days = [];
-  let i = 1;
-  while (days.length < daysInMonth) {
-    days.push(`${monthName} ${i}`);
-    i += 1;
-  }
-  return days;
-}
-
 function AreaGradient({ color, id }) {
   return (
     <defs>
@@ -41,9 +26,8 @@ AreaGradient.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-function KPICard({ title, value, trend, changeAmount, data }) {
+function KPICard({ title, value, trend, changeAmount, interval, data }) {
   const theme = useTheme();
-  const daysInWeek = getDaysInMonth(4, 2024);
 
   const trendColors = {
     up:
@@ -95,15 +79,15 @@ function KPICard({ title, value, trend, changeAmount, data }) {
             </Typography>
           </Stack>
           <Box sx={{ width: '100%', height: 50 }}>
-            <SparkLineChart
+          <SparkLineChart
               colors={[chartColor]}
-              data={data}
+              data={data} // Use the correct property 'data' for
               area
               showHighlight
               showTooltip
               xAxis={{
                 scaleType: 'band',
-                data: daysInWeek, // Use the correct property 'data' for xAxis
+                data: interval, // Use the correct property 'data' for xAxis
               }}
               sx={{
                 [`& .${areaElementClasses.root}`]: {
@@ -122,7 +106,8 @@ function KPICard({ title, value, trend, changeAmount, data }) {
 
 KPICard.propTypes = {
   data: PropTypes.arrayOf(PropTypes.number).isRequired,
-  interval: PropTypes.string.isRequired,
+  changeAmount: PropTypes.string.isRequired,
+  interval: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   trend: PropTypes.oneOf(['down', 'neutral', 'up']).isRequired,
   value: PropTypes.string.isRequired,

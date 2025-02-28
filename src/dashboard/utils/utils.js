@@ -55,3 +55,13 @@ export function getDaysInMonth(month, year) {
       </div>
     );
   }
+
+  export function humanizeNumber(number) {
+    if (number >= 1000000) {
+      return (number / 1000000).toFixed(1) + 'M'; // For millions
+    } else if (number >= 1000) {
+      return (number / 1000).toFixed(1) + 'k'; // For thousands
+    } else {
+      return number.toString(); // Return the number as it is if it's less than 1000
+    }
+  }

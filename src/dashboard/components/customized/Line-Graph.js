@@ -7,7 +7,6 @@ import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { getShortMonthNames } from '../../utils/utils';
 
 function AreaGradient({ color, id }) {
   return (
@@ -25,9 +24,8 @@ AreaGradient.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-export default function LineGraph({title, value, description, series}) {
+export default function LineGraph({title, value, description, interval, series}) {
   const theme = useTheme();
-  const data = getShortMonthNames();
 
   const colorPalette = [
     theme.palette.primary.light,
@@ -64,7 +62,7 @@ export default function LineGraph({title, value, description, series}) {
           xAxis={[
             {
               scaleType: 'point',
-              data,
+              data: interval,
               tickInterval: true,
             },
           ]}

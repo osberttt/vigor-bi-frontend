@@ -10,6 +10,7 @@ import SelectContent from './SelectContent';
 import MenuContent from './MenuContent';
 import CardAlert from './CardAlert';
 import OptionsMenu from './OptionsMenu';
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 const drawerWidth = 240;
 
@@ -42,7 +43,10 @@ export default function SideMenu() {
           p: 1.5,
         }}
       >
-        <SelectContent />
+        <InventoryIcon fontSize="large" color="primary" sx={{ mx: 3 }}/>
+        <Typography variant="h6" fontWeight="bold">
+          Vigor BI
+        </Typography>
       </Box>
       <Divider />
       <Box
