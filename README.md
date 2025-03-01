@@ -1,70 +1,125 @@
-# Getting Started with Create React App
+# Business Intelligence Inventory Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a school project for a **Business Intelligence Inventory Dashboard** built with **React** and **Material UI**. The dashboard is based on the Material UI Dashboard template and connects with a custom backend to visualize inventory data and analytics.
 
-## Available Scripts
+## Technologies Used
 
-In the project directory, you can run:
+- **Frontend**: Javascript, React, Material UI
+- **Backend**: Typescript, Express, Prisma
+- **Data Visualization**: Material UI Dashboard Template
+- **Backend Repository**: [Vigor BI Backend](https://github.com/osberttt/vigor-bi-backend)
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To run the application locally, follow the steps below:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+- Node.js (v14 or higher)
+- npm (Node Package Manager)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Setup
 
-### `npm run build`
+Follow the steps below to set up the project locally:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Backend Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.  **Clone the Backend Repository:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```bash
+    git clone https://github.com/osberttt/vigor-bi-backend
+    cd vigor-bi-backend
+    ```
 
-### `npm run eject`
+2.  **Create a Database:**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    * Create a new database using your preferred database management system (e.g., MySQL, PostgreSQL, SQLite).
+    * Note the database name, username, password, and host.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3.  **Create an `.env` File:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    * In the root directory of the backend project, create a file named `.env`.
+    * Add the `DATABASE_URL` variable with your database connection string.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+        * **Example (MySQL):**
 
-## Learn More
+            ```
+            DATABASE_URL="mysql://<user>:<password>@<host>:<port>/<database>"
+            ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+        * **Example (PostgreSQL):**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+            ```
+            DATABASE_URL="postgresql://<user>:<password>@<host>:<port>/<database>?schema=public"
+            ```
 
-### Code Splitting
+        * **Example (SQLite):**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+            ```
+            DATABASE_URL="file:./dev.db"
+            ```
 
-### Analyzing the Bundle Size
+        * Replace `<user>`, `<password>`, `<host>`, `<port>`, and `<database>` with your actual database credentials.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+4.  **Change Prisma Provider (Optional):**
 
-### Making a Progressive Web App
+    * If you are using a database other than MySQL, open the `prisma/schema.prisma` file.
+    * Modify the `provider` field in the `datasource` block to your desired database type (e.g., `postgresql`, `sqlite`).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+        ```prisma
+        datasource db {
+          provider = "postgresql" // or "sqlite", etc.
+          url      = env("DATABASE_URL")
+        }
+        ```
 
-### Advanced Configuration
+5.  **Install Dependencies:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    ```bash
+    npm install
+    ```
 
-### Deployment
+6.  **Seed the Database (Optional):**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+    * If you need to populate the database with initial data, run the seed script.
 
-### `npm run build` fails to minify
+    ```bash
+    npm run seed
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+7.  **Start the Development Server:**
+
+    ```bash
+    npm run dev
+    ```
+
+    * The backend server should now be running.
+
+## Frontend Setup
+
+1.  **Clone the Frontend Repository:**
+
+    ```bash
+    git clone https://github.com/osberttt/vigor-front-end
+    cd vigor-bi-frontend
+    ```
+
+2.  **Install Dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Start the Frontend Application:**
+
+    ```bash
+    npm start
+    ```
+
+    * The frontend application should now be running in your browser.
+    * It should connect to the backend server you started earlier.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Feel free to modify the template to better match your project's details.
