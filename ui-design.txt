@@ -30,17 +30,17 @@ top 5 worst-selling items (tables) shows (sku, item name, quantity sold)
 sales for stock group (donut chart)
 cost for stock group (donut chart)
 
-reports
-sale quantity of stock items and menu items (mom and yoy) bar graphs
-cost of stock items and menu items (mom and yoy) bar graphs
-revenue of stock items and menu items (mom and yoy) bar graphs
-gross profit of stock items and menu items (mom and yoy) bar graphs
+analysis
+sale quantity of stock items and menu items (mom and yoy) line graphs
+cost of stock items and menu items (mom and yoy) line graphs
+revenue of stock items and menu items (mom and yoy) line graphs
+gross profit of stock items and menu items (mom and yoy) line graphs
 
 cost and profit
 cost-revenue line chart for a month (with gross profit value)
 calculator (cost, revenue, profit) for a period in time
-bar graph for revenue (mom and yoy)
-top 5 most profit item of the month(shows sku, sale quantity, cost, revenue, profit)
+bar graph for stock and menu revenue (mom and yoy)
+top 5 most profit stock item of the month(shows sku, sale quantity, cost, revenue, profit)
 
 stock health
 table shows stock items (sku, name, average daily sold, available stocks) (order by available stocks)

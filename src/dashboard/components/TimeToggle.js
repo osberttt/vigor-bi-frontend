@@ -25,11 +25,11 @@ export default function TimeToggle({ onChange }) {
     >
       <ToggleButton value="months" aria-label="months">
         <CalendarTodayRoundedIcon sx={{ mr: 1 }} />
-        Months
+        Month-Over-Month
       </ToggleButton>
       <ToggleButton value="years" aria-label="years">
         <CalendarMonthRoundedIcon sx={{ mr: 1 }} />
-        Years
+        Year-Over-Year
       </ToggleButton>
     </ToggleButtonGroup>
   );

@@ -1,12 +1,12 @@
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import BarChartIcon from '@mui/icons-material/BarChart';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 
 export const Icons = {
   Overview: DashboardIcon,
-  Reports: BarChartIcon,
+  Trends: TrendingUpIcon,
   CostAndProfit: MonetizationOnIcon,
   StockManagement: InventoryIcon,
   AIInsights: PsychologyIcon,
