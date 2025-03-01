@@ -33,6 +33,13 @@ export default function LineGraph({title, value, description, interval, series})
     theme.palette.primary.dark,
   ];
 
+  const sx = series.reduce((acc, s) => {
+    acc[`& .MuiAreaElement-series-${s.id}`] = {
+      fill: `url('#${s.id}')`,
+    };
+    return acc;
+  }, {});
+
   return (
     <Card variant="outlined" sx={{ width: '100%' }}>
       <CardContent>
@@ -70,22 +77,14 @@ export default function LineGraph({title, value, description, interval, series})
           height={250}
           margin={{ left: 50, right: 20, top: 20, bottom: 20 }}
           grid={{ horizontal: true }}
-          sx={{
-            '& .MuiAreaElement-series-stock': {
-              fill: "url('#stock')",
-            },
-            '& .MuiAreaElement-series-menu': {
-              fill: "url('#menu')",
-            },
-          }}
+          sx={sx}
           slotProps={{
             legend: {
               hidden: true,
             },
           }}
         >
-          <AreaGradient color={theme.palette.primary.dark} id="menu" />
-          <AreaGradient color={theme.palette.primary.main} id="stock" />
+          {series.map((s, index) => (<AreaGradient key={s.id} color={index === 0 ? theme.palette.primary.dark : theme.palette.primary.main} id={s.id} />))}
         </LineChart>
       </CardContent>
     </Card>

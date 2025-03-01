@@ -300,7 +300,7 @@ export default function OverviewGrid() {
     // Call the async function
     fetchData();
   }, []);
-  // Best Selling Table
+  // Worst Selling Table
   const [worstRows, setWorstRows] = useState([]); 
   useEffect(() => {
     const fetchData = async () => {

@@ -7,6 +7,7 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { Link, useLocation } from "react-router-dom";
 
 export default function HighlightedCard() {
   const theme = useTheme();
@@ -25,7 +26,7 @@ export default function HighlightedCard() {
           Explore your data
         </Typography>
         <Typography sx={{ color: 'text.secondary', mb: '8px' }}>
-          Uncover performance and visitor insights with our data wizardry.
+          Uncover performance and visitor insights with our AI insights
         </Typography>
         <Button
           variant="contained"
@@ -33,9 +34,11 @@ export default function HighlightedCard() {
           color="primary"
           endIcon={<ChevronRightRoundedIcon />}
           fullWidth={isSmallScreen}
+          component={Link} // Use Link as the component
+          to="/ai-insights"  // Replace with your desired route
         >
           Get insights
-        </Button>
+    </Button>
       </CardContent>
     </Card>
   );

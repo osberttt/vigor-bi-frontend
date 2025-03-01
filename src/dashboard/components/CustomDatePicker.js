@@ -53,8 +53,8 @@ ButtonField.propTypes = {
   setOpen: PropTypes.func,
 };
 
-export default function CustomDatePicker() {
-  const [value, setValue] = React.useState(dayjs('2023-04-17'));
+
+export default function CustomDatePicker({ value, setValue, onDateChange }) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -62,7 +62,12 @@ export default function CustomDatePicker() {
       <DatePicker
         value={value}
         label={value == null ? null : value.format('MMM DD, YYYY')}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={(newValue) => {
+          setValue(newValue);
+          if (onDateChange) {
+            onDateChange(newValue);
+          }
+        }}
         slots={{ field: ButtonField }}
         slotProps={{
           field: { setOpen },
@@ -77,3 +82,4 @@ export default function CustomDatePicker() {
     </LocalizationProvider>
   );
 }
+

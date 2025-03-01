@@ -37,12 +37,9 @@ revenue of stock items and menu items (mom and yoy) line graphs
 gross profit of stock items and menu items (mom and yoy) line graphs
 
 cost and profit
-cost-revenue line chart for a month (with gross profit value)
-calculator (cost, revenue, profit) for a period in time
-bar graph for stock and menu revenue (mom and yoy)
-top 5 most profit stock item of the month(shows sku, sale quantity, cost, revenue, profit)
+calculator and line chart (cost, revenue, profit) for a period in time
 
 stock health
-table shows stock items (sku, name, average daily sold, available stocks) (order by available stocks)
+table shows stock items (sku, name, threshold, available stocks) (order by available stocks)
 
 ai insights

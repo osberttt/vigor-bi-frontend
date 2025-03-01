@@ -22,6 +22,9 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import AnalyticsBoard from './dashboard/AnalyticsBoard';
 import OverviewBoard from './dashboard/pages/Overview/Overview-Board';
 import TrendsBoard from './dashboard/pages/Trends/Trends-Board';
+import CostProfitBoard from './dashboard/pages/Cost-Profit/Cost-Profit-Board';
+import StockBoard from './dashboard/pages/Stock-Management/Stock-Management-Board';
+import AIBoard from './dashboard/pages/AI-Insights/AI-Insights-Board';
 
 const xThemeComponents = {
   ...chartsCustomizations,
@@ -41,9 +44,9 @@ function App(props) {
         <Route path="/" element={<OverviewBoard />} />
         <Route path="/overview" element={<OverviewBoard />} />
         <Route path="/trends" element={<TrendsBoard />} />
-        <Route path="/cost-profit" element={<AnalyticsBoard />} />
-        <Route path="/stock-management" element={<AnalyticsBoard />} />
-        <Route path="/ai-insight" element={<AnalyticsBoard />} />
+        <Route path="/cost-profit" element={<CostProfitBoard />} />
+        <Route path="/stock-management" element={<StockBoard />} />
+        <Route path="/ai-insights" element={<AIBoard />} />
       </Routes>
   </Box>
 </AppTheme>
