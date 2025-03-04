@@ -18,8 +18,8 @@ export default function CostProfitGrid() {
     const [profitSeries, setProfitSeries] = useState([]);
     const [profitValue, setProfitValue] = useState(0);
 
-    const [startDate, setStartDate] = React.useState(dayjs("2024-12-01"));
-    const [endDate, setEndDate] = React.useState(dayjs("2024-12-31"));
+    const [startDate, setStartDate] = React.useState(dayjs().subtract(30, "day"));
+    const [endDate, setEndDate] = React.useState(dayjs());
 
     // Fetch profit data when startDate & endDate change
     useEffect(() => {

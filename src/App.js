@@ -1,6 +1,5 @@
 import logo from './logo.svg';
 import './App.css';
-import Dashboard from './dashboard/Dashboard';
 import * as React from 'react';
 
 import { alpha } from '@mui/material/styles';
@@ -19,7 +18,6 @@ import {
   treeViewCustomizations,
 } from './dashboard/theme/customizations';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import AnalyticsBoard from './dashboard/AnalyticsBoard';
 import OverviewBoard from './dashboard/pages/Overview/Overview-Board';
 import TrendsBoard from './dashboard/pages/Trends/Trends-Board';
 import CostProfitBoard from './dashboard/pages/Cost-Profit/Cost-Profit-Board';

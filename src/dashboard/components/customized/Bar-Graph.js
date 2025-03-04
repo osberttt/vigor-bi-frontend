@@ -7,13 +7,25 @@ import Stack from '@mui/material/Stack';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useTheme } from '@mui/material/styles';
 
-export default function BarGraph({title, value, description, interval, series}) {
+export default function BarGraph({title, value, description, interval, series,chipValue = null}) {
   const theme = useTheme();
   const colorPalette = [
     (theme.vars || theme).palette.primary.dark,
     (theme.vars || theme).palette.primary.main,
     (theme.vars || theme).palette.primary.light,
   ];
+  const chipColors = {
+    up: "success",
+    down: "error",
+    neutral: "default"
+  }
+
+  let chipColor;
+  if (chipValue != null){
+    if (chipValue > 0) chipColor = chipColors.up;
+    else if (chipValue < 0) chipColor = chipColors.down;
+    else chipColor = chipColors.neutral;
+  }
 
   return (
     <Card variant="outlined" sx={{ width: '100%' }}>
@@ -33,7 +45,7 @@ export default function BarGraph({title, value, description, interval, series}) 
             <Typography variant="h4" component="p">
               {value}
             </Typography>
-            <Chip size="small" color="error" label="-8%" />
+            {chipValue && <Chip size="small" color={chipColor} label={`${chipValue} %`} />}
           </Stack>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             {description}

@@ -26,7 +26,7 @@ AreaGradient.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-function KPICard({ title, value, trend, changeAmount, interval, data }) {
+function KPICard({ title, value, changeAmount, interval, data }) {
   const theme = useTheme();
 
   const trendColors = {
@@ -50,6 +50,13 @@ function KPICard({ title, value, trend, changeAmount, interval, data }) {
     neutral: 'default',
   };
 
+  let trend;
+  if (changeAmount != null){
+    if (changeAmount > 0) trend = "up";
+    else if (changeAmount < 0) trend = "down";
+    else trend = "neutral";
+  }
+
   const color = labelColors[trend];
   const chartColor = trendColors[trend];
   const changeAmountSign = {up: '+', down: '-', neutral: ''};
@@ -72,7 +79,7 @@ function KPICard({ title, value, trend, changeAmount, interval, data }) {
               <Typography variant="h4" component="p">
                 {value}
               </Typography>
-              <Chip size="small" color={color} label={changeAmountSign[trend] + ' ' + changeAmount + '%'} />
+              <Chip size="small" color={color} label={changeAmountSign[trend] + ' ' + Math.abs(changeAmount) + '%'} />
             </Stack>
             <Typography variant="caption" sx={{ color: 'text.secondary' }}>
               Last 30 days

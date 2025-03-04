@@ -24,7 +24,7 @@ AreaGradient.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-export default function LineGraph({title, value, description, interval, series}) {
+export default function LineGraph({title, value, description, interval, series, chipValue = null}) {
   const theme = useTheme();
 
   const colorPalette = [
@@ -32,6 +32,19 @@ export default function LineGraph({title, value, description, interval, series})
     theme.palette.primary.main,
     theme.palette.primary.dark,
   ];
+
+  const chipColors = {
+    up: "success",
+    down: "error",
+    neutral: "default"
+  }
+
+  let chipColor;
+  if (chipValue != null){
+    if (chipValue > 0) chipColor = chipColors.up;
+    else if (chipValue < 0) chipColor = chipColors.down;
+    else chipColor = chipColors.neutral;
+  }
 
   const sx = series.reduce((acc, s) => {
     acc[`& .MuiAreaElement-series-${s.id}`] = {
@@ -58,7 +71,7 @@ export default function LineGraph({title, value, description, interval, series})
             <Typography variant="h4" component="p">
               {value}
             </Typography>
-            <Chip size="small" color="success" label="+35%" />
+            {chipValue && <Chip size="small" color={chipColor} label={`${chipValue} %`} />}
           </Stack>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             {description}

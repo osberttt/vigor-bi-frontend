@@ -19,23 +19,22 @@ import Table from '../../components/customized/Table';
 import LineGraph from '../../components/customized/Line-Graph';
 import BarGraph from '../../components/customized/Bar-Graph';
 import SimpleStatCard from '../../components/customized/Simple-Stat';
-import { humanizeNumber, renderSparklineCell } from '../../utils/utils';
+import { humanizeNumber, renderSparklineCell, calculatePercentageChange, humanizeDate } from '../../utils/utils';
 
-export default function OverviewGrid() {
-
+export default function OverviewGrid({date}) {
   // Unique SKUs
   const [uniqueSKUs, setUniqueSKUs] = useState([]);
   const [uniqueSKUsInterval, setUniqueSKUsInterval] = useState([]);
   useEffect(() => {
     // Fetch the API data
-    fetch('http://localhost:5000/api/overview/unique-skus')
+    fetch(`http://localhost:5000/api/overview/unique-skus?end=${date}`)
       .then((response) => response.json())
       .then((data) => {
         let interval = [];
         let skuData = [];
 
         for (let i = 0; i < data.data.length; i++) {
-          interval.push(data.data[i].date);
+          interval.push(humanizeDate(data.data[i].date));
           skuData.push(data.data[i].skus);
         }
 
@@ -45,7 +44,7 @@ export default function OverviewGrid() {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, [date]);
 
   // Quantity Line Graph
   const [quantitySeries, setquantitySeries] = useState([]);
@@ -53,7 +52,7 @@ export default function OverviewGrid() {
   const [quantityValue, setquantityValue] = useState('');
   useEffect(() => {
     // Fetch the API data
-    fetch('http://localhost:5000/api/overview/sale-quantity-graph')
+    fetch(`http://localhost:5000/api/overview/sale-quantity-graph?end=${date}`)
       .then((response) => response.json())
       .then((data) => {
         
@@ -66,7 +65,7 @@ export default function OverviewGrid() {
 
         // Iterate through the data array
         for (let i = 0; i < data.data.length; i++) {
-          interval.push(data.data[i].date);             // Push the date
+          interval.push(humanizeDate(data.data[i].date));             // Push the date
           menuItemData.push(data.data[i].menuItemQuantity);      // Push the menu item quantity
           stockItemData.push(data.data[i].stockItemQuantity);    // Push the stock item quantity
           value += data.data[i].menuItemQuantity;        // Add to the total quantity value
@@ -105,14 +104,14 @@ export default function OverviewGrid() {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, [date]);
 
   // Revenue Bar Graph
   const [revenueValue, setRevenueValue] = useState(0);
   const [revenueSeries, setRevenueSeries] = useState([]);
   useEffect(() => {
     // Fetch the API data
-    fetch('http://localhost:5000/api/overview/revenue-graph')
+    fetch(`http://localhost:5000/api/overview/revenue-graph?end=${date}`)
       .then((response) => response.json())
       .then((data) => {
         const series = [
@@ -131,7 +130,7 @@ export default function OverviewGrid() {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, [date]);
 
   // Total Cost KPI
   const [costData, setcostData] = useState([]);
@@ -139,7 +138,7 @@ export default function OverviewGrid() {
   const [costValue, setcostValue] = useState('');
   useEffect(() => {
     // Fetch the API data
-    fetch('http://localhost:5000/api/overview/total-cost-kpi')
+    fetch(`http://localhost:5000/api/overview/total-cost-kpi?end=${date}`)
       .then((response) => response.json())
       .then((data) => {
         let interval = [];
@@ -147,7 +146,7 @@ export default function OverviewGrid() {
         let value = 0;
 
         for (let i = 0; i < data.data.length; i++) {
-          interval.push(data.data[i].date);
+          interval.push(humanizeDate(data.data[i].date));
           costData.push(data.data[i].totalCost);
           value += data.data[i].totalCost;
         }
@@ -159,7 +158,7 @@ export default function OverviewGrid() {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, [date]);
 
   // Total Profit KPI
   const [profitData, setProfitData] = useState([]);
@@ -168,8 +167,8 @@ export default function OverviewGrid() {
   useEffect(() => {
     // Fetch the API data for Total Revenue and Total Cost
     Promise.all([
-      fetch('http://localhost:5000/api/overview/total-revenue-kpi'),
-      fetch('http://localhost:5000/api/overview/total-cost-kpi'),
+      fetch(`http://localhost:5000/api/overview/total-revenue-kpi?end=${date}`),
+      fetch(`http://localhost:5000/api/overview/total-cost-kpi?end=${date}`),
     ])
       .then(async ([revenueResponse, costResponse]) => {
         const revenueData = await revenueResponse.json();
@@ -180,7 +179,7 @@ export default function OverviewGrid() {
         let totalProfit = 0;
 
         for (let i = 0; i < revenueData.data.length; i++) {
-          interval.push(revenueData.data[i].date);
+          interval.push(humanizeDate(revenueData.data[i].date));
           
           // Assuming both revenueData and costData are ordered by the same interval (same date array)
           const revenue = revenueData.data[i].totalRevenue;
@@ -198,7 +197,7 @@ export default function OverviewGrid() {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, [date]);
 
   const columns = [
     {
@@ -254,7 +253,7 @@ export default function OverviewGrid() {
       headerName: 'Daily Conversions',
       flex: 1,
       minWidth: 150,
-      renderCell: renderSparklineCell,
+      renderCell: (params) => renderSparklineCell(params, costInterval),
     },
   ];
   // Best Selling Table
@@ -263,7 +262,7 @@ export default function OverviewGrid() {
     const fetchData = async () => {
       try {
         // Fetch the best-selling items data
-        const response = await fetch('http://localhost:5000/api/overview/best-selling-items');
+        const response = await fetch(`http://localhost:5000/api/overview/best-selling-items?end=${date}`);
         const data = await response.json();
         
         let rows = [];
@@ -273,7 +272,7 @@ export default function OverviewGrid() {
           const item = data.data[i];
           
           // Fetch daily sales data for the current item
-          const dailySalesResponse = await fetch(`http://localhost:5000/api/overview/get-daily-sales?menuId=${item.menuId}`);
+          const dailySalesResponse = await fetch(`http://localhost:5000/api/overview/get-daily-sales?menuId=${item.menuId}&&end=${date}`);
           const dailySalesData = await dailySalesResponse.json();
 
           // Push the item with its daily sales data and additional information to rows
@@ -299,14 +298,14 @@ export default function OverviewGrid() {
 
     // Call the async function
     fetchData();
-  }, []);
+  }, [date]);
   // Worst Selling Table
   const [worstRows, setWorstRows] = useState([]); 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch the best-selling items data
-        const response = await fetch('http://localhost:5000/api/overview/worst-selling-items');
+        const response = await fetch(`http://localhost:5000/api/overview/worst-selling-items?end=${date}`);
         const data = await response.json();
         
         let rows = [];
@@ -316,7 +315,7 @@ export default function OverviewGrid() {
           const item = data.data[i];
           
           // Fetch daily sales data for the current item
-          const dailySalesResponse = await fetch(`http://localhost:5000/api/overview/get-daily-sales?menuId=${item.menuId}`);
+          const dailySalesResponse = await fetch(`http://localhost:5000/api/overview/get-daily-sales?menuId=${item.menuId}&&end=${date}`);
           const dailySalesData = await dailySalesResponse.json();
 
           // Push the item with its daily sales data and additional information to rows
@@ -342,7 +341,27 @@ export default function OverviewGrid() {
 
     // Call the async function
     fetchData();
-  }, []);
+  }, [date]);
+
+  // Last Month Data
+  const [lastMonthCost, setLastMonthCost] = useState(0);
+  const [lastMonthRevenue, setLastMonthRevenue] = useState(0);
+  const [lastMonthQuantity, setLastMonthQuantity] = useState(0);
+  const [lastMonthProfit, setLastMonthProfit] = useState(0);
+  useEffect(() => {
+    // Fetch the API data
+    fetch(`http://localhost:5000/api/overview/last-month-data?end=${date}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setLastMonthCost(data.data.cost);
+        setLastMonthRevenue(data.data.revenue);
+        setLastMonthQuantity(data.data.quantity);
+        setLastMonthProfit(data.data.profit);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, [date]);
 
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
@@ -357,22 +376,22 @@ export default function OverviewGrid() {
         sx={{ mb: (theme) => theme.spacing(2) }}
       >
         <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
-          <KPICard title = "Total Sold Unique SKU" value = {humanizeNumber(87)} trend = "neutral" changeAmount="0" interval = {uniqueSKUsInterval} data = {uniqueSKUs} />
+          <KPICard title = "Total Sold Unique SKU" value = {humanizeNumber(87)}  changeAmount={0} interval = {uniqueSKUsInterval} data = {uniqueSKUs} />
         </Grid2>
         <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
-          <KPICard title = "Total Cost" value = {humanizeNumber(costValue)} trend = "up" changeAmount="5" interval = {costInterval} data = {costData} />
+          <KPICard title = "Total Cost" value = {humanizeNumber(costValue)}  changeAmount={calculatePercentageChange(costValue,lastMonthCost)} interval = {costInterval} data = {costData} />
         </Grid2>
         <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
-          <KPICard title = "Gross Profit" value = {humanizeNumber(profitValue)} trend = "up" changeAmount="12" interval = {profitInterval} data = {profitData} />
+          <KPICard title = "Gross Profit" value = {humanizeNumber(profitValue)}  changeAmount={calculatePercentageChange(profitValue,lastMonthProfit)} interval = {profitInterval} data = {profitData} />
         </Grid2>
         <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
           <HighlightedCard />
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6 }}>
-          <LineGraph title = "Total Sold Quantities of All Stock and Menu Items" value = {humanizeNumber(quantityValue)} description = "Last 30 days" interval = {quantityInterval} series = {quantitySeries}/>
+          <LineGraph title = "Total Sold Quantities of All Stock and Menu Items" value = {humanizeNumber(quantityValue)} description = "Last 30 days" interval = {quantityInterval} series = {quantitySeries} chipValue={calculatePercentageChange(quantityValue,lastMonthQuantity)}/>
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6 }}>
-          <BarGraph title = "Total Revenue of all Stock and Menu Items" value={humanizeNumber(revenueValue)} interval={['Stock','Menu']} description = "Last 30 days" series= {revenueSeries}/>
+          <BarGraph title = "Total Revenue of all Stock and Menu Items" value={humanizeNumber(revenueValue)} interval={['Stock','Menu']} description = "Last 30 days" series= {revenueSeries} chipValue={calculatePercentageChange(revenueValue,lastMonthRevenue)}/>
         </Grid2>
       </Grid2>
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>

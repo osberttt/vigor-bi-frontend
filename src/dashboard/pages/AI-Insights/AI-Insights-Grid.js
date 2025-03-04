@@ -12,7 +12,7 @@ export default function AIGrid() {
       <Card variant="outlined" sx={{ maxWidth: 300 }}>
       <CardContent>
         <Typography variant="body1">
-          You need an api key to get AI insights over your project data from Gemini API.
+          AI Insight hasn't been implemented yet.
         </Typography>
       </CardContent>
     </Card>

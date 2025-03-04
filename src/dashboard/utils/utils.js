@@ -29,8 +29,7 @@ export function getDaysInMonth(month, year) {
     );
   }
   
-  export function renderSparklineCell(params) {
-    const data = getDaysInMonth(4, 2024);
+  export function renderSparklineCell(params, data) {
     const { value, colDef } = params;
   
     if (!value || value.length === 0) {
@@ -65,3 +64,20 @@ export function getDaysInMonth(month, year) {
       return number.toString(); // Return the number as it is if it's less than 1000
     }
   }
+
+  export function calculatePercentageChange(thisMonth, lastMonth) {
+      if (lastMonth === 0) {
+        return thisMonth === 0 ? 0 : 100; // Handle case where last month's value is 0
+      }
+      const change = ((thisMonth - lastMonth) / lastMonth) * 100;
+      return parseFloat(change.toFixed(2));
+    }  
+
+    export function humanizeDate(dateString) {
+      const date = new Date(dateString); // Create Date object from string
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
