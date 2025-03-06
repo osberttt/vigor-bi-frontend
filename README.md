@@ -9,6 +9,54 @@ This is a school project for a **Business Intelligence Inventory Dashboard** bui
 - **Data Visualization**: Material UI Dashboard Template
 - **Backend Repository**: [Vigor BI Backend](https://github.com/osberttt/vigor-bi-backend)
 
+## Features
+
+### Overview Page
+- **Key Performance Indicators (KPIs)**
+  - Displays **Unique Sold SKU**, **Total Cost**, and **Total Profit** for the last 30 days starting from the selected date.
+  - Each KPI card includes a **mini line graph** that shows daily trends.
+  - Hovering over the line graph reveals daily data.
+  - A **capsule indicator** shows the percentage change compared to the previous month.
+  - A **"Get Insights" button** opens an AI-generated insight dialog for deeper analysis.
+
+- **Total Sold Quantities Line Graph**
+  - Visualizes the **total sold quantities** of stock and menu items over the last 30 days.
+  - Two separate lines for **stock** and **menu items**.
+  - Hovering over points displays daily data for both categories.
+
+- **Revenue Bar Graph**
+  - Compares revenue between **stock** and **menu items** using two separate bars.
+  - Includes a capsule showing the percentage change from the previous month.
+  - The **"Get Insights" button** provides AI-generated insights into revenue trends.
+
+- **Top 5 Best-Selling & Worst-Selling Items**
+  - Displays the top five best and worst-performing items based on sales.
+  - A **daily conversion section** shows the quantity sold for each day.
+  - Hovering over items provides **detailed daily sales data**.
+
+- **Date Selection**
+  - Users can change the starting date using a **calendar picker**.
+  - All data, including KPIs, graphs, and tables, adjust dynamically based on the selected date.
+
+### Trends Page
+- Displays **month-over-month and year-over-year (YoY) bar graphs** for **total cost, revenue, and profit**.
+- Provides **interactive graphs and AI insights** for better decision-making.
+
+### Cost & Profit Page
+- Breaks down cost and profit metrics by category, item, and time period.
+- Includes a **calculator** where users can input a **start date and end date** to see cost, revenue, and profit during that period.
+- Offers AI-driven insights to optimize **profitability and cost efficiency**.
+
+### Stock Management Page
+- Monitors **stock levels** for stock items.
+- Provides AI-driven insights to prevent **stockouts and overstocking**.
+
+### AI-Driven Insights
+- Every key section includes a **"Get Insights" button** for AI-generated analysis.
+- Helps users **identify patterns, optimize stock, and improve profitability**.
+
+
+
 ## Getting Started
 
 To run the application locally, follow the steps below:
