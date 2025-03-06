@@ -107,7 +107,15 @@ Follow the steps below to set up the project locally:
             DATABASE_URL="file:./dev.db"
             ```
 
-        * Replace `<user>`, `<password>`, `<host>`, `<port>`, and `<database>` with your actual database credentials.
+        * Replace `<user>`, `<password>`, `<host>`, `<port>`, and `<database>` with your actual database credentials.   
+    * Add the `API_KEY` variable if you want AI insight from gemini api too.
+
+        * **Example:**
+
+            ```
+            API_KEY="<your_api_key>"
+            ```
+        * Replace `<your_api_key>` with your actual gemini api key.
 
 4.  **Change Prisma Provider (Optional):**
 
