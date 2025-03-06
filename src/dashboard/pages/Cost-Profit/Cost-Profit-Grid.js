@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Copyright from '../../internals/components/Copyright';
 import Grid2 from '@mui/material/Grid2';
 import LineGraph from '../../components/customized/Line-Graph';
-import { humanizeNumber, renderSparklineCell } from '../../utils/utils';
+import { humanizeDate, humanizeNumber, renderSparklineCell } from '../../utils/utils';
 import CustomDatePicker from '../../components/CustomDatePicker';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -47,7 +47,7 @@ export default function CostProfitGrid() {
         let profitArray = [];
 
         for (let i = 0; i < revenueData.data.length; i++) {
-            interval.push(revenueData.data[i].date);
+            interval.push(humanizeDate(revenueData.data[i].date));
 
             const revenue = revenueData.data[i].totalRevenue;
             const cost = costData.data[i].totalCost;
@@ -153,7 +153,7 @@ export default function CostProfitGrid() {
             
 
             <Grid2 size={{ xs: 12, md: 6 }}>
-              <LineGraph title = "Total Profit" value = {humanizeNumber(profitValue)} description = "Last 30 days" interval = {profitInterval} series = {profitSeries}/>
+              <LineGraph title = "Total Profit" value = {humanizeNumber(profitValue)} description = "Data for period between start date and end date" interval = {profitInterval} series = {profitSeries}/>
             </Grid2>
           </Grid2>
           <Copyright sx={{ my: 4 }} />

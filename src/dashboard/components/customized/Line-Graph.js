@@ -7,6 +7,9 @@ import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { Button } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
 function AreaGradient({ color, id }) {
   return (
@@ -24,8 +27,9 @@ AreaGradient.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-export default function LineGraph({title, value, description, interval, series, chipValue = null}) {
+export default function LineGraph({id, title, value, description, interval, series, chipValue = null, handleClickOpen}) {
   const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const colorPalette = [
     theme.palette.primary.light,
@@ -76,7 +80,18 @@ export default function LineGraph({title, value, description, interval, series, 
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             {description}
           </Typography>
+          
         </Stack>
+        <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            endIcon={<ChevronRightRoundedIcon />}
+            fullWidth={isSmallScreen}
+            onClick={() => handleClickOpen(id)}
+          >
+            Get insights
+        </Button>
         <LineChart
           colors={colorPalette}
           xAxis={[
@@ -99,6 +114,7 @@ export default function LineGraph({title, value, description, interval, series, 
         >
           {series.map((s, index) => (<AreaGradient key={s.id} color={index === 0 ? theme.palette.primary.dark : theme.palette.primary.main} id={s.id} />))}
         </LineChart>
+        
       </CardContent>
     </Card>
   );

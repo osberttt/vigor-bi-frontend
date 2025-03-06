@@ -11,7 +11,7 @@ export default function AIGrid() {
       fetch(`http://localhost:5000/api/ai-insight/insight`)
         .then((response) => response.json())
         .then((data) => {
-          setInsight(data.data.insight);
+          setInsight(data.data);
         })
         .catch((error) => {
           console.error('Error fetching data:', error);

@@ -6,9 +6,13 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useTheme } from '@mui/material/styles';
+import { Button } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
-export default function BarGraph({title, value, description, interval, series,chipValue = null}) {
+export default function BarGraph({id, title, value, description, interval, series,chipValue = null, handleClickOpen}) {
   const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const colorPalette = [
     (theme.vars || theme).palette.primary.dark,
     (theme.vars || theme).palette.primary.main,
@@ -50,7 +54,18 @@ export default function BarGraph({title, value, description, interval, series,ch
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             {description}
           </Typography>
+          
         </Stack>
+        <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            endIcon={<ChevronRightRoundedIcon />}
+            fullWidth={isSmallScreen}
+            onClick={() => handleClickOpen(id)}
+          >
+            Get insights
+        </Button>
         <BarChart
           borderRadius={8}
           colors={colorPalette}
@@ -71,6 +86,7 @@ export default function BarGraph({title, value, description, interval, series,ch
             },
           }}
         />
+        
       </CardContent>
     </Card>
   );

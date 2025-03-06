@@ -9,6 +9,9 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
 import { areaElementClasses } from '@mui/x-charts/LineChart';
+import { Button } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
 function AreaGradient({ color, id }) {
   return (
@@ -26,9 +29,9 @@ AreaGradient.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-function KPICard({ title, value, changeAmount, interval, data }) {
+function KPICard({ id, title, value, changeAmount, interval, data, handleClickOpen }) {
   const theme = useTheme();
-
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const trendColors = {
     up:
       theme.palette.mode === 'light'
@@ -85,7 +88,18 @@ function KPICard({ title, value, changeAmount, interval, data }) {
               Last 30 days
             </Typography>
           </Stack>
+          
           <Box sx={{ width: '100%', height: 50 }}>
+          <Button
+            variant="contained"
+            size="small"
+            color="primary"
+            endIcon={<ChevronRightRoundedIcon />}
+            fullWidth={isSmallScreen}
+            onClick={() => handleClickOpen(id)}
+          >
+            Get insights
+          </Button>
           <SparkLineChart
               colors={[chartColor]}
               data={data} // Use the correct property 'data' for
@@ -105,6 +119,7 @@ function KPICard({ title, value, changeAmount, interval, data }) {
               <AreaGradient color={chartColor} id={`area-gradient-${value}`} />
             </SparkLineChart>
           </Box>
+          
         </Stack>
       </CardContent>
     </Card>

@@ -13,7 +13,6 @@ const mainListItems = [
   { text: "Trends", icon: <Icons.Trends />, path: "/trends" },
   { text: "Cost & Profit", icon: <Icons.CostAndProfit />, path: "/cost-profit" },
   { text: "Stock Management", icon: <Icons.StockManagement />, path: "/stock-management" },
-  { text: "AI Insights", icon: <Icons.AIInsights />, path: "/ai-insights" },
 ];
 
 

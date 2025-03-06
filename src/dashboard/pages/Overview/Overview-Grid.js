@@ -1,25 +1,23 @@
-import React, { useState, useEffect, use } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid2 from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Copyright from '../../internals/components/Copyright';
-import ChartUserByCountry from '../../components/ChartUserByCountry';
-import CustomizedDataGrid from '../../components/CustomizedDataGrid';
 import HighlightedCard from '../../components/HighlightedCard';
-import PageViewsBarChart from '../../components/PageViewsBarChart';
-import SessionsChart from '../../components/SessionsChart';
 import KPICard from '../../components/customized/KPI-Card';
 
-import {data} from '../../data/Overview/KPI-Data';
-import {series as salesSeries} from '../../data/Overview/Total-Sales-Amount';
-import {series as quantitySeries} from '../../data/Overview/Total-Quantity';
 
 import Table from '../../components/customized/Table';
 import LineGraph from '../../components/customized/Line-Graph';
 import BarGraph from '../../components/customized/Bar-Graph';
-import SimpleStatCard from '../../components/customized/Simple-Stat';
 import { humanizeNumber, renderSparklineCell, calculatePercentageChange, humanizeDate } from '../../utils/utils';
+import { Button } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import axios from 'axios';
 
 export default function OverviewGrid({date}) {
   // Unique SKUs
@@ -363,8 +361,66 @@ export default function OverviewGrid({date}) {
       });
   }, [date]);
 
+  // dialog
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [dialogTitle, setDialogTitle] = React.useState("");
+  const [dialogDescription, setDialogDescription] = React.useState("");
+
+  const handleClickOpen = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/ai-insights/overview?id=${id}&&end=${date}`);
+      setDialogDescription(response.data.data);
+      switch (id) {
+        case "sku": 
+          setDialogTitle("Gemini AI Insight for Total Sold Unique SKU");
+          break;
+        case "cost":
+          setDialogTitle("Gemini AI Insight for Total Cost");
+          break;
+        case "profit":
+          setDialogTitle("Gemini AI Insight for Total Profit");
+          break;
+        case "quantity":
+          setDialogTitle("Gemini AI Insight for Total Sold Quantities of All Stock and Menu Items");
+          break;
+        case "revenue":
+          setDialogTitle("Gemini AI Insight for Total Revenue of all Stock and Menu Items");
+          break;
+        default:
+          break;
+      }
+      setDialogOpen(true);
+    } catch (error) {
+      console.error("API call failed:", error);
+    }
+    
+  };
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
+
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
+      <Dialog
+        open={dialogOpen}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {dialogTitle}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {dialogDescription}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
       {/* cards */}
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Overview
@@ -376,22 +432,19 @@ export default function OverviewGrid({date}) {
         sx={{ mb: (theme) => theme.spacing(2) }}
       >
         <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
-          <KPICard title = "Total Sold Unique SKU" value = {humanizeNumber(87)}  changeAmount={0} interval = {uniqueSKUsInterval} data = {uniqueSKUs} />
+          <KPICard id="sku" title = "Total Sold Unique SKU" value = {humanizeNumber(87)}  changeAmount={0} interval = {uniqueSKUsInterval} data = {uniqueSKUs} handleClickOpen={handleClickOpen}/>
         </Grid2>
         <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
-          <KPICard title = "Total Cost" value = {humanizeNumber(costValue)}  changeAmount={calculatePercentageChange(costValue,lastMonthCost)} interval = {costInterval} data = {costData} />
+          <KPICard id="cost" title = "Total Cost" value = {humanizeNumber(costValue)}  changeAmount={calculatePercentageChange(costValue,lastMonthCost)} interval = {costInterval} data = {costData} handleClickOpen={handleClickOpen}/>
         </Grid2>
         <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
-          <KPICard title = "Gross Profit" value = {humanizeNumber(profitValue)}  changeAmount={calculatePercentageChange(profitValue,lastMonthProfit)} interval = {profitInterval} data = {profitData} />
-        </Grid2>
-        <Grid2 size={{ xs: 12, sm: 6, lg: 3 }}>
-          <HighlightedCard />
+          <KPICard id="profit" title = "Gross Profit" value = {humanizeNumber(profitValue)}  changeAmount={calculatePercentageChange(profitValue,lastMonthProfit)} interval = {profitInterval} data = {profitData} handleClickOpen={handleClickOpen}/>
+        </Grid2>       
+        <Grid2 size={{ xs: 12, md: 6 }}>
+          <LineGraph id = "quantity" title = "Total Sold Quantities of All Stock and Menu Items" value = {humanizeNumber(quantityValue)} description = "Last 30 days" interval = {quantityInterval} series = {quantitySeries} chipValue={calculatePercentageChange(quantityValue,lastMonthQuantity)} handleClickOpen={handleClickOpen}/>
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6 }}>
-          <LineGraph title = "Total Sold Quantities of All Stock and Menu Items" value = {humanizeNumber(quantityValue)} description = "Last 30 days" interval = {quantityInterval} series = {quantitySeries} chipValue={calculatePercentageChange(quantityValue,lastMonthQuantity)}/>
-        </Grid2>
-        <Grid2 size={{ xs: 12, md: 6 }}>
-          <BarGraph title = "Total Revenue of all Stock and Menu Items" value={humanizeNumber(revenueValue)} interval={['Stock','Menu']} description = "Last 30 days" series= {revenueSeries} chipValue={calculatePercentageChange(revenueValue,lastMonthRevenue)}/>
+          <BarGraph id = "revenue" title = "Total Revenue of all Stock and Menu Items" value={humanizeNumber(revenueValue)} interval={['Stock','Menu']} description = "Last 30 days" series= {revenueSeries} chipValue={calculatePercentageChange(revenueValue,lastMonthRevenue)} handleClickOpen={handleClickOpen}/>
         </Grid2>
       </Grid2>
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
