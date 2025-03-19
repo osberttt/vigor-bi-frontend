@@ -7,7 +7,7 @@ This is a school project for a **Business Intelligence Inventory Dashboard** bui
 - **Frontend**: Javascript, React, Material UI
 - **Backend**: Typescript, Express, Prisma
 - **Data Visualization**: Material UI Dashboard Template
-- **Frontend Repository**: [Vigor BI Backend](https://github.com/osberttt/vigor-bi-backend)
+- **Backend Repository**: [Vigor BI Backend](https://github.com/osberttt/vigor-bi-backend)
 - **Static site Repository**: [Vigor BI Static](https://github.com/osberttt/vigor-bi-static)
 
 ## Features
