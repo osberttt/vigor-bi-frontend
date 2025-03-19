@@ -7,7 +7,8 @@ This is a school project for a **Business Intelligence Inventory Dashboard** bui
 - **Frontend**: Javascript, React, Material UI
 - **Backend**: Typescript, Express, Prisma
 - **Data Visualization**: Material UI Dashboard Template
-- **Backend Repository**: [Vigor BI Backend](https://github.com/osberttt/vigor-bi-backend)
+- **Frontend Repository**: [Vigor BI Backend](https://github.com/osberttt/vigor-bi-backend)
+- **Static site Repository**: [Vigor BI Static](https://github.com/osberttt/vigor-bi-static)
 
 ## Features
 
@@ -55,7 +56,11 @@ This is a school project for a **Business Intelligence Inventory Dashboard** bui
 - Every key section includes a **"Get Insights" button** for AI-generated analysis.
 - Helps users **identify patterns, optimize stock, and improve profitability**.
 
+## Live Demo
 
+This is a static live demo of the project: [Live Demo](https://splendid-dolphin-5c913e.netlify.app/)
+
+Please note that not all features are available in this demo. To access the full functionality, follow the setup instructions below to run the project locally.
 
 ## Getting Started
 
@@ -107,7 +112,7 @@ Follow the steps below to set up the project locally:
             DATABASE_URL="file:./dev.db"
             ```
 
-        * Replace `<user>`, `<password>`, `<host>`, `<port>`, and `<database>` with your actual database credentials.   
+        * Replace `<user>`, `<password>`, `<host>`, `<port>`, and `<database>` with your actual database credentials.
     * Add the `API_KEY` variable if you want AI insight from gemini api too.
 
         * **Example:**
