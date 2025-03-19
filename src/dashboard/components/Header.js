@@ -33,7 +33,6 @@ export default function Header({pageName}) {
       <NavbarBreadcrumbs pageName={pageName}/>
       <Stack direction="row" sx={{ gap: 1 }}>
         <Search />
-        <CustomDatePicker value={selectedDate} setValue={setSelectedDate} onDateChange={handleDateChange} />
         <MenuButton showBadge aria-label="Open notifications">
           <NotificationsRoundedIcon />
         </MenuButton>

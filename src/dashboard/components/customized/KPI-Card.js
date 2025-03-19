@@ -84,22 +84,28 @@ function KPICard({ id, title, value, changeAmount, interval, data, handleClickOp
               </Typography>
               <Chip size="small" color={color} label={changeAmountSign[trend] + ' ' + Math.abs(changeAmount) + '%'} />
             </Stack>
-            <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-              Last 30 days
-            </Typography>
+            <Stack
+              direction="row"
+              sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+            >
+              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                Last 30 days
+              </Typography>
+              <Button
+                variant="contained"
+                size="small"
+                color="primary"
+                endIcon={<ChevronRightRoundedIcon />}
+                fullWidth={isSmallScreen}
+                onClick={() => handleClickOpen(id)}
+              >
+                Get insights
+              </Button>
+            </Stack>
           </Stack>
           
           <Box sx={{ width: '100%', height: 50 }}>
-          <Button
-            variant="contained"
-            size="small"
-            color="primary"
-            endIcon={<ChevronRightRoundedIcon />}
-            fullWidth={isSmallScreen}
-            onClick={() => handleClickOpen(id)}
-          >
-            Get insights
-          </Button>
+          
           <SparkLineChart
               colors={[chartColor]}
               data={data} // Use the correct property 'data' for

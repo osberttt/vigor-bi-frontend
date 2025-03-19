@@ -365,7 +365,6 @@ export default function OverviewGrid({date}) {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [dialogTitle, setDialogTitle] = React.useState("");
   const [dialogDescription, setDialogDescription] = React.useState("");
-
   const handleClickOpen = async (id) => {
     try {
       const response = await axios.get(`http://localhost:5000/api/ai-insights/overview?id=${id}&&end=${date}`);

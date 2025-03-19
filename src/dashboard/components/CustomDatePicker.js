@@ -62,10 +62,13 @@ export default function CustomDatePicker({ value, setValue, onDateChange }) {
       <DatePicker
         value={value}
         label={value == null ? null : value.format('MMM DD, YYYY')}
-        onChange={(newValue) => {
-          setValue(newValue);
-          if (onDateChange) {
-            onDateChange(newValue);
+        onAccept={(newValue) => {
+          // Check if the new value contains both day, month, and year
+          if (newValue && newValue.isValid() && newValue.date() !== 1) {
+            setValue(newValue);  // Update only when the date is complete
+            if (onDateChange) {
+              onDateChange(newValue);
+            }
           }
         }}
         slots={{ field: ButtonField }}
@@ -78,6 +81,8 @@ export default function CustomDatePicker({ value, setValue, onDateChange }) {
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         views={['day', 'month', 'year']}
+        maxDate={dayjs()}
+        minDate={dayjs('2020-01-01')}
       />
     </LocalizationProvider>
   );
