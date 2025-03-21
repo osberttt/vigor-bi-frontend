@@ -39,6 +39,16 @@ export default function Table({rows, columns}) {
           },
         },
       }}
+      initialState={{
+        sorting: {
+          sortModel: [
+            {
+              field: 'quantityDeficit', // The column to be sorted
+              sort: 'desc', // 'asc' for ascending, 'desc' for descending
+            },
+          ],
+        },
+      }}
     />
   );
 }

@@ -1,12 +1,11 @@
 import * as React from 'react';
-
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Header from '../../components/Header';
 import CostProfitGrid from './Cost-Profit-Grid';
 
-export default function CostProfitBoard(props) {
+export default function CostProfitBoard({useDatabase}) {
   return (
     <Box
           component="main"
@@ -28,7 +27,7 @@ export default function CostProfitBoard(props) {
             }}
           >
             <Header pageName="Cost and Profit"/>
-            <CostProfitGrid />
+            <CostProfitGrid useDatabase={useDatabase}/>
           </Stack>
     </Box>
   );

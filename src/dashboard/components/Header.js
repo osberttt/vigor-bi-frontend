@@ -1,20 +1,21 @@
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
-import CustomDatePicker from './CustomDatePicker';
 import NavbarBreadcrumbs from './NavbarBreadcrumbs';
 import MenuButton from './MenuButton';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
-import dayjs from 'dayjs';
-import Search from './Search';
+import { Button, Snackbar, Typography } from '@mui/material';
+import { useState } from 'react';
+import { topStockItems } from '../data/stock';
 
 export default function Header({pageName}) {
+  const [open, setOpen] = useState(false);
+  const handleClick = () => {
+    setOpen(true);
+  };
 
-  const [selectedDate, setSelectedDate] = React.useState(dayjs());
-
-  const handleDateChange = (newDate) => {
-    console.log('Selected Date:', newDate.format('YYYY-MM-DD'));
-    // Perform any action here
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -30,12 +31,39 @@ export default function Header({pageName}) {
       }}
       spacing={2}
     >
+       <Snackbar
+            open={open}
+            message={
+              <>
+                <Typography variant="h6" color="error">
+                  Attention: Low Stock Alert!
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  The following items are below the stock level threshold and require immediate restocking:
+                </Typography>
+                {topStockItems.slice(0, 5).map((item, index) => (
+                  <Typography key={index} variant="body2" color="textSecondary">
+                    {item.itemName}: {Math.abs(item.quantityDeficit)} units below stock level threshold
+                  </Typography>
+                ))}
+              </>
+            }
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "top",   // Position the Snackbar at the top
+              horizontal: "right", // Position the Snackbar at the right
+            }}
+            sx={{
+              pt: 5
+            }}
+          />
       <NavbarBreadcrumbs pageName={pageName}/>
       <Stack direction="row" sx={{ gap: 1 }}>
-        <Search />
-        <MenuButton showBadge aria-label="Open notifications">
-          <NotificationsRoundedIcon />
-        </MenuButton>
+        <Button onClick={handleClick}>
+          <MenuButton showBadge aria-label="Open notifications">
+            <NotificationsRoundedIcon />
+          </MenuButton>
+        </Button>
         <ColorModeIconDropdown />
       </Stack>
     </Stack>

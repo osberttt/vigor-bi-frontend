@@ -1,12 +1,11 @@
 import * as React from 'react';
-
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Header from '../../components/Header';
 import StockGrid from './Stock-Management-Grid';
 
-export default function StockBoard(props) {
+export default function StockBoard({useDatabase}) {
   return (
     <Box
           component="main"
@@ -28,7 +27,7 @@ export default function StockBoard(props) {
             }}
           >
             <Header pageName="Stock Management"/>
-            <StockGrid />
+            <StockGrid useDatabase={useDatabase}/>
           </Stack>
     </Box>
   );

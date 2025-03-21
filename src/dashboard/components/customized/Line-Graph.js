@@ -7,7 +7,7 @@ import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { Button } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
@@ -75,23 +75,24 @@ export default function LineGraph({id, title, value, description, interval, seri
             <Typography variant="h4" component="p">
               {value}
             </Typography>
-            {chipValue && <Chip size="small" color={chipColor} label={`${chipValue} %`} />}
+            {chipValue && <Chip size="small" color={chipColor} label={chipValue > 0? `+ ${chipValue} %`:`${chipValue} %`} />}
           </Stack>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             {description}
           </Typography>
-          
         </Stack>
-        <Button
-            variant="contained"
-            size="small"
-            color="primary"
-            endIcon={<ChevronRightRoundedIcon />}
-            fullWidth={isSmallScreen}
-            onClick={() => handleClickOpen(id)}
-          >
-            Get insights
-        </Button>
+        <Tooltip title="click to see AI insights" placement="right" arrow enterDelay={500} leaveDelay={200}>
+          <Button
+              variant="contained"
+              size="small"
+              color="primary"
+              endIcon={<ChevronRightRoundedIcon />}
+              fullWidth={isSmallScreen}
+              onClick={() => handleClickOpen(id)}
+            >
+              Get insights
+          </Button>
+        </Tooltip>       
         <LineChart
           colors={colorPalette}
           xAxis={[

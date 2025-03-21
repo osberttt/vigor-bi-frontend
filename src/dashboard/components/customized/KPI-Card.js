@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
 import { areaElementClasses } from '@mui/x-charts/LineChart';
-import { Button } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
@@ -82,7 +82,9 @@ function KPICard({ id, title, value, changeAmount, interval, data, handleClickOp
               <Typography variant="h4" component="p">
                 {value}
               </Typography>
-              <Chip size="small" color={color} label={changeAmountSign[trend] + ' ' + Math.abs(changeAmount) + '%'} />
+              <Tooltip title="data compared to last month" placement="left" arrow enterDelay={500} leaveDelay={200}>
+                <Chip size="small" color={color} label={changeAmountSign[trend] + ' ' + Math.abs(changeAmount) + '%'} />
+              </Tooltip>
             </Stack>
             <Stack
               direction="row"
@@ -91,16 +93,18 @@ function KPICard({ id, title, value, changeAmount, interval, data, handleClickOp
               <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                 Last 30 days
               </Typography>
-              <Button
-                variant="contained"
-                size="small"
-                color="primary"
-                endIcon={<ChevronRightRoundedIcon />}
-                fullWidth={isSmallScreen}
-                onClick={() => handleClickOpen(id)}
-              >
-                Get insights
-              </Button>
+              <Tooltip title="click to see AI insights" placement="left" arrow enterDelay={500} leaveDelay={200}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  color="primary"
+                  endIcon={<ChevronRightRoundedIcon />}
+                  fullWidth={isSmallScreen}
+                  onClick={() => handleClickOpen(id)}
+                >
+                  Get insights
+                </Button>
+              </Tooltip>
             </Stack>
           </Stack>
           
